@@ -2,40 +2,63 @@ function setup() {
     createCanvas(400, 400);
     background(240);
     noStroke();
-
-    
-    fill(255, 224, 189); 
-    ellipse(200, 200, 150, 200); 
-
- 
+  
+    //  VARIABLES 
+    let faceX = 200;
+    let faceY = 200;
+    let faceWidth = 150;
+    let faceHeight = 200;
+    let eyeOffsetX = 35;
+    let eyeOffsetY = -20;
+  
+    //  HEAD 
+    fill(255, 224, 189); // skin color
+    ellipse(faceX, faceY, faceWidth, faceHeight);
+  
+    // HAIR 
     fill(0);
-    arc(200, 150, 140, 120, 3.14, 0); 
-
+    arc(faceX, faceY - 50, 140, 120, PI, 0); // top hair
+  
+    //  EYEBROWS 
     fill(0);
-    rect(150, 160, 30, 5, 3);
-    rect(220, 160, 30, 5, 3); 
-
-    // Eyes
-    fill(255); // whites
-    ellipse(165, 180, 25, 15);
-    ellipse(235, 180, 25, 15);
-
-    fill(101, 67, 33);
-    ellipse(165, 180, 10, 10);
-    ellipse(235, 180, 10, 10);
-
-    fill(0);
-    ellipse(165, 180, 5, 5);
-    ellipse(235, 180, 5, 5);
-
+    rect(faceX - eyeOffsetX - 10, faceY - 40, 30, 5, 3);
+    rect(faceX + eyeOffsetX - 20, faceY - 40, 30, 5, 3);
+  
+    // EYES 
+    drawEye(faceX - eyeOffsetX, faceY + eyeOffsetY, 1); // left eye
+    drawEye(faceX + eyeOffsetX, faceY + eyeOffsetY, 1.2); // right eye scaled
+  
+    //  NOSE using rotation 
+    push();
+    translate(faceX, faceY + 10);
+    rotate(radians(10));
+    fill(255, 200, 170);
+    triangle(0, 0, -5, 20, 5, 20);
+    pop();
+  
+    //  MOUTH 
     fill(30);
-    arc(200, 230, 60, 15, 3.14, 0, CHORD); 
-
+    arc(faceX, faceY + 40, 60, 15, PI, 0, CHORD); // upper lip
+  
     stroke(150, 0, 0);
     strokeWeight(6);
     noFill();
-    arc(200, 240, 40, 10, 0, 3.14); 
+    arc(faceX, faceY + 50, 40, 10, 0, PI); // lower lip
   }
-
+  
+  function drawEye(x, y, scaleFactor) {
+    push();
+    translate(x, y);
+    scale(scaleFactor); // scale the entire eye
+    fill(255);
+    ellipse(0, 0, 25, 15); // white
+    fill(101, 67, 33);
+    ellipse(0, 0, 10, 10); // iris
+    fill(0);
+    ellipse(0, 0, 5, 5); // pupil
+    pop();
+  }
+  
   function draw() {
   }
+  
